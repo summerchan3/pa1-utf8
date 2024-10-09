@@ -45,29 +45,25 @@ int32_t width_from_start_byte(char start_byte) {
     return width;
 }
 
-/*int32_t utf8_strlen(char str[]) {
+int32_t utf8_strlen(char str[]) {
     int32_t length = 0;
-    int32_t index = 0;
+    int index = 0;
 
     while(str[index] != 0) {
-        if(width_from_start_byte(str[index]) >= 1 && width_from_start_byte(str[index]) <= 4) {
-            length += 1;
-            index += width_from_start_byte(str[index]);
-        }         
-        else 
-            length = -1;
+        length += 1;
+        index += width_from_start_byte(str[index]);
     }
 
     return length;
-}*/
+}
 
 
 int main() {
-    printf("Is 💀aabb ASCII? %d\n", is_ascii("💀aabb"));
+    printf("Is 🔥 ASCII? %d\n", is_ascii("🔥"));
     printf("Is abcd ASCII? %d\n", is_ascii("abcd"));
 
     int32_t ret = 0;
-    char str[] = "💀aabb";
+    char str[] = "abcd";
     ret = capitalize_ascii(str);
     printf("Capitalized String: %s\nCharacters updated: %d\n", str, ret);
 
@@ -77,7 +73,7 @@ int main() {
     
 
     char str2[] = "Joséph";
-   // printf("Length of string %s is %d\n", str2, utf8_strlen(str2));
+    printf("Length of string %s is %d\n", str2, utf8_strlen(str2));
 
     return 0;
 }
