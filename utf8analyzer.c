@@ -26,27 +26,27 @@ int main() {
 
     printf("\nValid ASCII: %s\n", is_ascii(buffer) ? "true" : "false");
     capitalize_ascii(buffer);
-    printf("Uppercased ASCII: %s\n", buffer);
+    printf("Uppercased ASCII: \"%s\"\n", buffer);
 
     while(input[index] != 0) {
         byte_length += width_from_start_byte(index);
         index += width_from_start_byte(index);
     }
     //subtracting 1 for new line character
-    printf("Length in bytes: %d\n", (byte_length - 1));
-    printf("Number of code points: %d\n", (utf8_strlen(input) - 1));
+    printf("Length in bytes: %d\n", (byte_length));
+    printf("Number of code points: %d\n", (utf8_strlen(input)));
     printf("Bytes per code point: ");
-    for(int i = 0; i < utf8_strlen(input) - 1; i += 1){
+    for(int i = 0; i < utf8_strlen(input); i += 1){
         printf("%d ", width_from_start_byte(input[codepoint_index_to_byte_index(input, i)]));
     }
     utf8_substring(input, 0, 6, result);
-    printf("\nSubstring of the first 6 code points: %s\n", result);
+    printf("\nSubstring of the first 6 code points: \"%s\"\n", result);
     printf("Code points as decimal numbers: ");
-    for(int i = 0; i < utf8_strlen(input) - 1; i += 1){
+    for(int i = 0; i < utf8_strlen(input); i += 1){
         printf("%d ", codepoint_at(input, i));
     }
     printf("\nAnimal emojis: ");
-    for(int i = 0; i < utf8_strlen(input) - 1; i+= 1){
+    for(int i = 0; i < utf8_strlen(input); i+= 1){
         if(is_animal_emoji_at(input, i) == 1) {
             utf8_substring(input, i, i + 1, animal_emojis);
             printf("%s ", animal_emojis);

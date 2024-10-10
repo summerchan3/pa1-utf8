@@ -154,6 +154,7 @@ char is_animal_emoji_at(char str[], int32_t cpi) {
         boolean = 1;
     return boolean;
 }
+
 /*
  int main() {
     printf("Is 🔥 ASCII? %d\n", is_ascii("🔥"));
