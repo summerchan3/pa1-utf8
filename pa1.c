@@ -111,18 +111,42 @@ void utf8_substring(char str[], int32_t cpi_start, int32_t cpi_end, char result[
     }
 }
 
+//returns decimal value of code point index
 int32_t codepoint_at(char str[], int32_t cpi) {
     int32_t decimal = 0;
     int32_t bi = 0;
+    int32_t bi2 = 0;
+    int32_t bi3 = 0;
+    int32_t bi4 = 0;
     bi = codepoint_index_to_byte_index(str, cpi);
 
+    //1 byte
     if(width_from_start_byte(str[bi]) == 1)
         decimal = str[bi];
-    else if(width_from_start_byte(str[bi]) == 2) 
-        decimal = ();
+    else if(width_from_start_byte(str[bi]) == 2) { //2 bytes
+        bi2 = bi + 1;
+        decimal = ((str[bi] & 0b00011111) * 64 + (str[bi2] & 0b00111111));
+    }
+    else if(width_from_start_byte(str[bi]) == 3) { //3 bytes
+        bi2 = bi + 1;
+        bi3 = bi + 2;
+        decimal = ((str[bi] & 0b00001111) * 4096 + (str[bi2] & 0b00111111) * 64 + (str[bi3] & 0b00111111));
+    }
+    else if(width_from_start_byte(str[bi]) == 4) { //4 bytes
+        bi2 = bi + 1;
+        bi3 = bi + 2;
+        bi4 = bi + 3;
+        decimal = ((str[bi] & 0b00001111) * 256000 + (str[bi2] & 0b00111111) * 4096 + (str[bi3] & 0b00111111) * 64 + (str[bi4] & 0b00111111));
+    }
+
     return decimal;
 }
 
+//returns 1 if emoji at codepoint index is animal emoji
+//returns 0 if not
+char is_animal_emoji_at(char str[], int32_t cpi) {
+
+}
 int main() {
     printf("Is 🔥 ASCII? %d\n", is_ascii("🔥"));
     printf("Is abcd ASCII? %d\n", is_ascii("abcd"));
@@ -149,8 +173,12 @@ int main() {
     printf("String: %s\nSubstring: %s\n", "🦀🦮🦮🦀🦀🦮🦮", result);    
 
     char str4[] = "Joséph";
-    int32_t idx2 = 4;
+    int32_t idx2 = 3;
     printf("Codepoint at %d in %s is %d\n", idx2, str4, codepoint_at(str4, idx2));
+
+    char strE[] = "🦀🦀🦀";
+    int32_t idx3 = 2;
+    printf("Codepoint at %d in %s is %d\n", idx3, strE, codepoint_at(strE, idx3));
 
     return 0;
 }
