@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 
 //returns 0 if not ascii and 1 if is ascii
 int32_t is_ascii(char str[]) {
@@ -39,7 +40,7 @@ int32_t width_from_start_byte(char start_byte) {
     int32_t firstFour = (start_byte & 0b11110000);
 
     //ascii values start with 01xxxxxx
-    if(firstFour <= 0b01110000 && firstFour >= 0b01000000) 
+    if(firstFour <= 0b01110000 && firstFour >= 0b00000000) 
         width = 1;
     else if (firstFour == 0b11000000) //2 byte start with 110xxxxx
         width = 2;
@@ -53,7 +54,7 @@ int32_t width_from_start_byte(char start_byte) {
     return width;
 }
 
-//increments over string and adds up length of bytes
+//increments over string and adds up length of codepoints
 int32_t utf8_strlen(char str[]) {
     int32_t length = 0;
     int32_t index = 0;
@@ -109,6 +110,9 @@ void utf8_substring(char str[], int32_t cpi_start, int32_t cpi_end, char result[
         bi += 1;
         bi_start += 1;
     }
+
+    //prevents running on into memory 
+    result[bi] = 0;
 }
 
 //returns decimal value of code point index
@@ -163,12 +167,10 @@ char is_animal_emoji_at(char str[], int32_t cpi) {
     char s[] = "Héy"; // same as { 'H', 0xC3, 0xA9, 'y', 0 },   é is start byte + 1 cont. byte
     printf("Width: %d bytes\n", width_from_start_byte(s[1])); // start byte 0xC3 indicates 2-byte sequence
     printf("Width: %d bytes\n", width_from_start_byte(s[2]));
-    
 
     char str2[] = "Joséph";
-    printf("Length of string %s is %d\n", str2, utf8_strlen(str2));
 
-    char str3[] = "Joséph";
+    printf("Length of string %s is %d\n", str2, utf8_strlen(str2));
     int32_t idx = 4;
     printf("Codepoint index %d is byte index %d\n", idx, codepoint_index_to_byte_index("Joséph", idx));
 
