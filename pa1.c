@@ -136,7 +136,7 @@ int32_t codepoint_at(char str[], int32_t cpi) {
         bi2 = bi + 1;
         bi3 = bi + 2;
         bi4 = bi + 3;
-        decimal = ((str[bi] & 0b00001111) * 256000 + (str[bi2] & 0b00111111) * 4096 + (str[bi3] & 0b00111111) * 64 + (str[bi4] & 0b00111111));
+        decimal = ((str[bi] & 0b00001111) * 262144 + (str[bi2] & 0b00111111) * 4096 + (str[bi3] & 0b00111111) * 64 + (str[bi4] & 0b00111111));
     }
 
     return decimal;
@@ -145,9 +145,13 @@ int32_t codepoint_at(char str[], int32_t cpi) {
 //returns 1 if emoji at codepoint index is animal emoji
 //returns 0 if not
 char is_animal_emoji_at(char str[], int32_t cpi) {
-
+    char boolean = 0;
+    if((codepoint_at(str, cpi) >= 128000 && codepoint_at(str, cpi) <= 128063) || (codepoint_at(str, cpi) >= 129408 && codepoint_at(str, cpi) <= 129454))
+        boolean = 1;
+    return boolean;
 }
-int main() {
+/*
+ int main() {
     printf("Is 🔥 ASCII? %d\n", is_ascii("🔥"));
     printf("Is abcd ASCII? %d\n", is_ascii("abcd"));
 
@@ -174,11 +178,13 @@ int main() {
 
     char str4[] = "Joséph";
     int32_t idx2 = 3;
-    printf("Codepoint at %d in %s is %d\n", idx2, str4, codepoint_at(str4, idx2));
+    printf("Codepoint at %d in %s is animal? %d\n", idx2, str4, codepoint_at(str4, idx2));
 
-    char strE[] = "🦀🦀🦀";
+    char strE[] = "🦀🐀🦮🐿️";
     int32_t idx3 = 2;
     printf("Codepoint at %d in %s is %d\n", idx3, strE, codepoint_at(strE, idx3));
-
+    printf("Codepoint at %d in %s is %d\n", idx3, strE, is_animal_emoji_at(strE, idx3));
+    printf("Codepoint at %d in %s is %d\n", idx2, str4, is_animal_emoji_at(str4, idx2));
+   
     return 0;
-}
+} */
