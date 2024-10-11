@@ -1,0 +1,9 @@
+Enter a UTF-8 encoded string: 
+Valid ASCII: false
+Uppercased ASCII: "H🐀I"
+Length in bytes: 6
+Number of code points: 3
+Bytes per code point: 1 4 1
+Substring of the first 6 code points: "h🐀i"
+Code points as decimal numbers: 104 128000 105
+Animal emojis: 🐀

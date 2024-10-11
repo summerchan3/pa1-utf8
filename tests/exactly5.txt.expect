@@ -1,0 +1,9 @@
+Enter a UTF-8 encoded string: 
+Valid ASCII: false
+Uppercased ASCII: "🦀HAHA"
+Length in bytes: 8
+Number of code points: 5
+Bytes per code point: 4 1 1 1 1
+Substring of the first 6 code points: "🦀haha"
+Code points as decimal numbers: 129408 104 97 104 97
+Animal emojis: 🦀

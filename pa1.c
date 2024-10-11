@@ -95,6 +95,13 @@ int32_t codepoint_index_to_byte_index(char str[], int32_t cpi) {
 
 //converts cpi start/end to bi and traverses over translated bi to copy over bytes
 void utf8_substring(char str[], int32_t cpi_start, int32_t cpi_end, char result[]) {
+    int32_t length = utf8_strlen(str);
+
+    //in the case that string not long enough for ending cpi
+    //set ending cpi to last codepoint in string
+    if (length < cpi_end)
+        cpi_end = length;
+
     if(cpi_start > cpi_end || cpi_start < 0 || cpi_end < 0)
         return;
 
