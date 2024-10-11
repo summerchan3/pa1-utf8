@@ -98,7 +98,7 @@ void utf8_substring(char str[], int32_t cpi_start, int32_t cpi_end, char result[
     int32_t length = utf8_strlen(str);
 
     //in the case that string not long enough for ending cpi
-    //set ending cpi to last codepoint in string
+    //set ending cpi to last code point in string
     if (length < cpi_end)
         cpi_end = length;
 
